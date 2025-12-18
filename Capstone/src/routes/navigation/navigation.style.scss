@@ -1,0 +1,41 @@
+.navigation {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;          // 👈 vertical centering
+  padding: 0 40px;
+  box-sizing: border-box;
+
+
+  .logo-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 50px;             // 👈 control logo size
+      width: auto;              // keep aspect ratio
+      object-fit: contain;
+      display: block;
+    }
+  }
+
+  .nav-links-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .nav-link {
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 16px;
+      text-decoration: none;
+      color: #000;
+
+      &:hover {
+        color: #cedc36;
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+ .category-container {
+    position: relative;
+    height: 280px;
+    width:400px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* IMAGE */
+  .background-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   
+    background-size: contain; 
+    background-position: center;
+    z-index: 1;
+    transform: scale(1);
+    transition: transform 0.5s ease;
+  }
+  
+  .category-container:hover .background-img {
+    transform: scale(1.08);
+  }
+  
+  /* TEXT BOX */
+  .category-body-container {
+    position:relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.75);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #333;
+  }
+  
