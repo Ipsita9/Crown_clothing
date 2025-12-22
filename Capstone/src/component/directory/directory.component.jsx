@@ -1,4 +1,4 @@
-import CategoryItem from "../category-items/category-item.component";
+import CategoryItem from "../category-items/category-item.component.jsx";
 import "./directory-style.scss";
 
 const Directory = ({ categories }) => {
