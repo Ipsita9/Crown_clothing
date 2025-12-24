@@ -1,5 +1,4 @@
 import { useState } from "react";
-import SignIn from "../../routes/sign-in/sign-in.component";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -13,7 +12,7 @@ const defaultFromFields = {
   password: "",
   confirmPassword: "",
 };
-import './sign-up-form.style.scss';
+
 
 
 const SignUpForm = () => {
@@ -39,7 +38,7 @@ const SignUpForm = () => {
       );
       await createUserDocumentFromAuth(user, { displayName });
       resetFromFields();
-      setFromFields(defaultFromFields);
+      
     } catch (error) {
       if(error.code=='auth/email-already-in-use'){
         alert('cant create ,user already exist');

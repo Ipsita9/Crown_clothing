@@ -2,7 +2,7 @@ import { Fragment } from "react/jsx-runtime";
 import { Link, Outlet } from "react-router-dom";
 import CrwnLogo from "../../assets/crwn.png";
 import "./navigation.style.scss";
-import SignIn from "../sign-in/sign-in.component";
+import SignIn from "../authentication/authentication.component";
 const Navigation = () => {
   return (
     <>
@@ -15,7 +15,7 @@ const Navigation = () => {
           <Link className="nav-link" to="/shop">
             Shop
           </Link>
-          <Link className="nav-link" to="/signin">
+          <Link className="nav-link" to="/auth">
             Sign In
           </Link>
         </div>

@@ -22,18 +22,18 @@
     border:1px solid black;
 
    }
-   &:google-sign-in{
-    background-color: aquamarine;
-    color: black;
+   &.google-sign-in{
+    background-color: rgb(34, 32, 60);
+    color: rgb(239, 239, 239);
 
     &:hover{
-        background-color: rgb(80, 135, 186);
+        background-color: rgb(78, 114, 148);
         color:black;
         border:none;
 
     }
    }
-   &:inverted{
+   &.inverted{
     background-color: white;
     color:black;
     border:1px solid black;
