@@ -7,10 +7,9 @@ import {
 import Home from "/src/routes/home/home.component";
 import Navigation from "./routes/navigation/navigation-component";
 import Authentication from "./routes/authentication/authentication.component";
+import Shop from '../src/routes/shop/shop.component';
 
-const Shop = () => {
-  return <div> shop now</div>;
-};
+
 
 const App = () => {
   return (
