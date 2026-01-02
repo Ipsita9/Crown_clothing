@@ -17,7 +17,10 @@ const CartIcon = () => {
   return (
     <div className="cart-icon-container" onClick={toggleIsCartOpen}>
       <img src={shoppingIcon} alt="cart" className="shopping-icon" />
-      <span className="item-count">{cartCount}</span>
+
+      {cartCount > 0 && (
+        <span className="count-inside">{cartCount}</span>
+      )}
     </div>
   );
 };

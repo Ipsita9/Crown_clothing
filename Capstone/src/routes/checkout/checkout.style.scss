@@ -1,0 +1,23 @@
+.checkout-container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin: 50px auto 0;
+
+  .checkout-header {
+    width: 100%;
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: 23% 23% 23% 23% 8%;
+    border-bottom: 1px solid rgb(103, 51, 51);
+
+    .header-block {
+      text-transform: capitalize;
+    }
+  }
+
+  .total {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
