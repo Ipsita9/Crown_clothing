@@ -12,6 +12,7 @@ const CheckoutItem = ({ cartItem }) => {
   } = useContext(CartContext);
 
   return (
+    
     <div className="checkout-item-container">
       <div className="image-container">
         <img src={imageUrl} alt={name} />
@@ -37,7 +38,7 @@ const CheckoutItem = ({ cartItem }) => {
         </span>
       </span>
 
-      <span className="price">${price}*{quantity}</span>
+      <span className="price">${price}</span>
 
       <div
         className="remove-button"

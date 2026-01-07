@@ -15,6 +15,7 @@
 }
 #root {
   width: 100%;
+  /* scrollbar-gutter: stable; */
 }
 
 a {

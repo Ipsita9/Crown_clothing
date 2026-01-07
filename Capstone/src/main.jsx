@@ -5,18 +5,18 @@ import App from "./App.jsx";
 
 import { UserProvider } from "../src/context/user.context.jsx";
 import { BrowserRouter } from "react-router-dom";
-import { ProductsProvider} from "../src/context/product.context.jsx";
+import { CategoriesProvider} from "../src/context/categories.context.jsx";
 import { CartProvider } from  "../src/context/cart.context.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <ProductsProvider>
+        <CategoriesProvider>
           <CartProvider>
               <App />
           </CartProvider>
              
-        </ProductsProvider>
+        </CategoriesProvider>
          {/* for accessing the context values in the entire app */}
        
       </UserProvider>

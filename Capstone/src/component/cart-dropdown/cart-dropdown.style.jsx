@@ -1,0 +1,70 @@
+import styled, { keyframes } from "styled-components";
+export const CartDropDownContainer = styled.div`
+  position: absolute;
+  top: 70px; // below navbar
+  right: 40px; // under cart icon
+
+  width: 260px;
+  height: 340px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+
+  z-index: 1000;
+  animation: slideDown 0.25s ease;
+`;
+
+export const CartItemContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  overflow-y: auto;
+  margin-bottom: 16px;
+`;
+export const EmptyMessage=styled.span`
+font-size:18px;
+margin:50px auto;
+
+
+`
+/* animation */
+const slideDown = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+export const CheckoutButton = styled.button`
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+  border: none;
+
+  background: black;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  animation: ${slideDown} 0.3s ease-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+`;

@@ -1,7 +1,7 @@
-import { Fragment, useContext } from "react";
+import { Fragment, useContext ,useState,useEffect} from "react";
 import { Link, Outlet } from "react-router-dom";
 import CrwnLogo from "../../assets/crwn.png";
-import "./navigation.style.scss";
+
 import CartIcon from "../../component/card-icon/card-icon.component";
 import CartDropdown from "../../component/cart-dropdown/cart-dropdown.component";
 
@@ -10,10 +10,25 @@ import { CartContext } from "../../context/cart.context";
 import { signOutUser } from "../../routes/utils/firebase/firebase-util";
 
 import SignIn from "../authentication/authentication.component";
+import{NavigationContainer,LogoContainer, Img ,NavLinks,NavLink} from "./navigation.style.jsx";
+
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
   const { isCartOpen } = useContext(CartContext);
   console.log("NAV isCartOpen:", isCartOpen);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+
+
   const signOutHandler = async () => {
     await signOutUser();
   };
@@ -22,35 +37,36 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="navigation">
-        <Link className="logo-container" to="/">
-          <img src={CrwnLogo} alt="logo" />
-        </Link>
+       <NavigationContainer className={isScrolled ? "scrolled" : ""}>
+      <LogoContainer to="/">
+        <Img src={CrwnLogo} alt="logo" />
+      </LogoContainer>
 
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/shop">
-            Shop
-          </Link>
-          {currentUser ? (
-            <span className="nav-link" onClick={signOutHandler}>
-              Sign Out
-            </span>
-          ) : (
-            <Link className="nav-link" to="/auth">
-              Sign In
-            </Link>
-          )}
-          <CartIcon />
-        </div>
-        {isCartOpen && <CartDropdown />}
+      <NavLinks>
+        <NavLink to="/shop">
+          Shop
+        </NavLink>
 
-        {/* If isCartOpen is true, show <CartDropdown />.
-If isCartOpen is false, show nothing. */}
-      </div>
-        
-      {/* 👇 IMPORTANT: Without this, children routes will never show */}
-      <Outlet />
-    </>
+        {currentUser ? (
+          <span className="nav-link" onClick={signOutHandler}>
+            Sign Out
+          </span>
+        ) : (
+          <NavLink to="/auth">
+            Sign In
+          </NavLink>
+        )}
+
+        <CartIcon />
+      </NavLinks>
+
+      {isCartOpen && <CartDropdown />}
+    </NavigationContainer>
+
+    {/* 👇 This is correct */}
+    <Outlet />
+  
+      </>
   );
 };
 
