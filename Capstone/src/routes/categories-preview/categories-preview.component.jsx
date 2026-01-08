@@ -2,7 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import { useContext,Fragment } from "react";
 import { CategoriesContext } from "../../context/categories.context";
 import CategoryPreview from "../../component/category-preview/category-preview.component";
-import SHOP_DATA  from "../../shop-data.JS";
+import SHOP_DATA  from "../../shop-data.js";
 import "./categories-preview.style.scss";
 
 
