@@ -1,21 +1,31 @@
-import { Fragment, useContext ,useState,useEffect} from "react";
-import { Link, Outlet } from "react-router-dom";
-import CrwnLogo from "../../assets/crwn.png";
+import { useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
 
+import CrwnLogo from "../../assets/crwn.png";
 import CartIcon from "../../component/card-icon/card-icon.component";
 import CartDropdown from "../../component/cart-dropdown/cart-dropdown.component";
 
-import { UserContext } from "../../context/user.context";
-import { CartContext } from "../../context/cart.context";
-import { signOutUser } from "../../routes/utils/firebase/firebase-util";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
+// import { signOutUser } from "../../routes/utils/firebase/firebase-util";
+import { signOutStart } from "../../store/user/user.action.js";
 
-import SignIn from "../authentication/authentication.component";
-import{NavigationContainer,LogoContainer, Img ,NavLinks,NavLink} from "./navigation.style.jsx";
+import {
+  NavigationContainer,
+  LogoContainer,
+  Img,
+  NavLinks,
+  NavLink,
+} from "./navigation.style.jsx";
 
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(CartContext);
-  console.log("NAV isCartOpen:", isCartOpen);
+  const dispatch=useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+  const isCartOpen = useSelector(selectIsCartOpen);
+
+  const signOutUser=()=>dispatch(signOutStart());
+
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -27,46 +37,36 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
-
   const signOutHandler = async () => {
     await signOutUser();
   };
 
-  console.log(currentUser);
-
   return (
     <>
-       <NavigationContainer className={isScrolled ? "scrolled" : ""}>
-      <LogoContainer to="/">
-        <Img src={CrwnLogo} alt="logo" />
-      </LogoContainer>
+      <NavigationContainer className={isScrolled ? "scrolled" : ""}>
+        <LogoContainer to="/">
+          <Img src={CrwnLogo} alt="logo" />
+        </LogoContainer>
 
-      <NavLinks>
-        <NavLink to="/shop">
-          Shop
-        </NavLink>
+        <NavLinks>
+          <NavLink to="/shop">Shop</NavLink>
 
-        {currentUser ? (
-          <span className="nav-link" onClick={signOutHandler}>
-            Sign Out
-          </span>
-        ) : (
-          <NavLink to="/auth">
-            Sign In
-          </NavLink>
-        )}
+          {currentUser ? (
+            <span className="nav-link" onClick={signOutHandler}>
+              Sign Out
+            </span>
+          ) : (
+            <NavLink to="/auth">Sign In</NavLink>
+          )}
 
-        <CartIcon />
-      </NavLinks>
+          <CartIcon />
+        </NavLinks>
 
-      {isCartOpen && <CartDropdown />}
-    </NavigationContainer>
+        {isCartOpen && <CartDropdown />}
+      </NavigationContainer>
 
-    {/* 👇 This is correct */}
-    <Outlet />
-  
-      </>
+      <Outlet />
+    </>
   );
 };
 

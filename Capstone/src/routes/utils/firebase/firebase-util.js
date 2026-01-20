@@ -1,6 +1,4 @@
-import { initializeApp } from "firebase/app";
 import {
-  getAuth,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -8,8 +6,8 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+
 import {
-  getFirestore,
   doc,
   getDoc,
   setDoc,
@@ -17,102 +15,71 @@ import {
   writeBatch,
   query,
   getDocs,
-
 } from "firebase/firestore";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAQL2WoAvtDMBjuM-JilDLGS4xUrGm1ExQ",
-  authDomain: "ecommersapp-f901f.firebaseapp.com",
-  projectId: "ecommersapp-f901f",
-  storageBucket: "ecommersapp-f901f.firebasestorage.app",
-  messagingSenderId: "203061338614",
-  appId: "1:203061338614:web:2730332890e1a325f867d7",
-  measurementId: "G-DMXQ2KVNDK",
-};
-const firebaseApp = initializeApp(firebaseConfig);
+import { auth, db } from "./firebase-config";
 
+/* GOOGLE SIGN IN */
 const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
-  prompt: "select_account",
-});
-export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
-export const db = getFirestore();
-export const addCollectionAndDocument = async (collectionKey, objectsToAdd) => {
-  const collectionRef = collection(db, collectionKey);
-  const batch = writeBatch(db);
+provider.setCustomParameters({ prompt: "select_account" });
 
-  objectsToAdd.forEach((object) => {
-    const docRef = doc(collectionRef, object.title.toLowerCase());
-    batch.set(docRef, object);
-  });
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, provider);
 
-  await batch.commit();
-  console.log('done');
-};
+/* FIRESTORE HELPERS */
 export const getCategoriesAndDocument = async () => {
-  const collectionRef = collection(db, 'categories');
+  const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
-  const querySnapshot = await getDocs(q);
-
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
-
-  return categoryMap;
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((doc) => doc.data());
 };
 
-
-
+/* USER HELPERS */
 export const createUserDocumentFromAuth = async (
   userAuth,
-  additionalInformation = {}
+  additionalDetails = {}
 ) => {
   if (!userAuth) return;
+
   const userDocRef = doc(db, "users", userAuth.uid);
-  console.log(userDocRef);
   const userSnapshot = await getDoc(userDocRef);
-  console.log(userSnapshot);
-  console.log(userSnapshot.exists());
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
-    const createdAt = new Date();
 
-    try {
-      await setDoc(userDocRef, {
-        displayName,
-        email,
-        createdAt,
-        ...additionalInformation,
-      });
-    } catch (error) {
-      console.log("error creating the user", error.message);
-      console.log("Manual error creating the user");
-    }
+    await setDoc(userDocRef, {
+      displayName,
+      email,
+      createdAt: new Date(),
+      ...additionalDetails,
+    });
+
+    // ✅ IMPORTANT: fetch snapshot again after creating user
+    return await getDoc(userDocRef);
   }
 
-  return userDocRef;
+  // ✅ return snapshot (NOT docRef)
+  return userSnapshot;
 };
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
-  if (!email || !password) return;
-  return await createUserWithEmailAndPassword(auth, email, password);
-};
-export const signInAuthUserWithEmailAndPassword = async (email, password) => {
-  if (!email || !password) return;
-  return await signInWithEmailAndPassword(auth, email, password);
-};
-export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateChangedListener = (callback) =>
-  onAuthStateChanged(auth, callback);
-//  by this method when ever auth state changed it call the callback method it track the signin,signout.refers ect.
+/* AUTH HELPERS */
+export const createAuthUserWithEmailAndPassword = (email, password) =>
+  createUserWithEmailAndPassword(auth, email, password);
 
-// stream listener
-// {
-//   next:calback,
-//   error:errocallback,
-//   complete:completecallback,
-// }
+export const signInAuthUserWithEmailAndPassword = (email, password) =>
+  signInWithEmailAndPassword(auth, email, password);
+
+export const signOutUser = () => signOut(auth);
+
+/* PROMISE WRAPPER (for saga) */
+export const getCurrentUser = () =>
+  new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });

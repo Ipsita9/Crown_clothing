@@ -1,27 +1,39 @@
-import {useContext} from 'react';
-import "./product-card.style.scss";
+import { useDispatch,useSelector } from "react-redux";
+import { addItemToCart } from "../../store/cart/cart.action";
+import { selectCartItems } from "../../store/cart/cart.selector";
+
+import {
+  ProductCartContainer,
+  Footer,
+  Name,
+  Price,
+} from "./product-card.style.jsx";
+
 import Button from "../button/button.component";
-import { CartContext } from "../../context/cart.context";
 
+const ProductCard = ({ product }) => {
+  const { name, imageUrl, price } = product;
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
 
+  const addProductToCart = () => {
+    dispatch(addItemToCart(cartItems, product));
+  };
 
-const ProductCard =({product})=>{
-    const {name,imageUrl,price}=product;
-    const {addItemToCart}=useContext(CartContext);
-    const addProductToCart =()=>addItemToCart(product);
+  return (
+    <ProductCartContainer>
+      <img src={imageUrl} alt={name} />
 
-    
-  return(
-     <div className="product-card-container">
-    <img src={imageUrl} alt={`${name}`}/>
-    <div className="footer">
-        <span className="name">{name}</span>
-        <span className="price">${price}</span>
-    </div>
-    <Button className="add-to-cart-button" onClick={addProductToCart}>
+      <Footer>
+        <Name>{name}</Name>
+        <Price>${price}</Price>
+      </Footer>
+
+      <Button className="add-to-cart-button" onClick={addProductToCart}>
         Add to cart
       </Button>
-   </div>
+    </ProductCartContainer>
   );
 };
+
 export default ProductCard;

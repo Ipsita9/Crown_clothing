@@ -1,12 +1,14 @@
-.product-card-container {
+import styled from "styled-components";
+
+export const ProductCartContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   height: 350px;
   align-items: center;
   position: relative;
-  // margin-top: 20px;
 
+  
   h2{
     padding-top: 20px;
   }
@@ -17,10 +19,10 @@
     object-fit: cover;
     margin-bottom: 5px;
   }
-  //
+  
   .add-to-cart-button {
     position: absolute;
-    bottom: 12px; // 👈 few px from bottom
+     bottom: 12px; // 👈 few px from bottom
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
@@ -40,28 +42,21 @@
       bottom: 20px; //  slight upward movement
       pointer-events: auto;
     }
-  }
 
-  .footer{
-    width: 100%;
+`;
+export const Footer = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between; // 👈 pushes items to both sides
   align-items: center;
-  margin-top:2px;
-    
-  }
-  .name{
-    font-size: 1.6rem;
-    color:rgb(15, 11, 35);
-
-
-  }
-  .price{
-    
-    color:blueviolet;
-    font-size: 16px;
+  margin-top: 2px;
+`;
+export const Name = styled.span`
+  font-size: 1.6rem;
+  color: rgb(15, 11, 35);
+`;
+export const Price = styled.span`
+  color: blueviolet;
+  font-size: 16px;
   font-weight: 500;
-
-  }
-
-}
+`;

@@ -245,35 +245,35 @@ const SHOP_DATA = [
 
       },
       {
-        id:36,
+        id:37,
         name:"cotton patto",
         imageUrl:'https://cdn.sareesaga.com/image/cache/data-2024/blue-silk-designer-traditional-saree-250494-1000x1375.jpg',
         price:30,
 
       },
       {
-        id:36,
+        id:38,
         name:"black banarasi patto",
         imageUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdoDpM_RvTOq-luWB-GVwakrxFQIfmAI9oGg&s',
         price:25,
 
       },
       {
-        id:36,
+        id:39,
         name:"printed shrees patto",
         imageUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPBsNvEm-NxwzZzR7dD42cXrYVz54n9xp0Dg&s',
         price:24,
 
       },
       {
-        id:36,
+        id:40,
         name:"shrees",
         imageUrl:'https://www.nihalfashions.com/blog/wp-content/uploads/2015/05/Sarees-Online-Nihal-Fashions.jpg',
         price:24,
 
       },
       {
-        id:36,
+        id:41,
         name:"cotton shrees",
         imageUrl:'https://ragthm.com/cdn/shop/files/photo_2024-05-22_11-27-03.jpg?v=1721279956&width=1946',
         price:45,
