@@ -6,15 +6,20 @@ import { ProductContainer } from "./shop.style.jsx";
 import CategoriesPreview from "../categories-preview/categories-preview.component";
 import Category from "../category/category.component";
 
-// import { getCategoriesAndDocument } from "../utils/firebase/firebase-util";
- import { fetchCategoriesStart } from "../../store/categories/category-action.js";
+ import { getCategoriesAndDocument } from "../utils/firebase/firebase-util";
+ import { setCategories } from "../../store/categories/category-reducer.js";
 
 const Shop = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategoriesStart());
-  }, []);
+    const fetchCategories=async()=>{
+      const categoriesArray=await getCategoriesAndDocument()
+       dispatch(setCategories(categoriesArray));
+
+    }
+    fetchCategories()
+  }, [dispatch]);
 
   return (
     <Routes>

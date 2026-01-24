@@ -1,4 +1,5 @@
 import {  useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -6,6 +7,8 @@ import {
 import FormInput from "../form-input/form-input.component";
 import './sign-up-form.style.scss';
 import Button from "../button/button.component";
+
+import { setCurrentUser} from "../../store/user/user.reducer";
 
 const defaultFromFields = {
   displayName: "",
@@ -17,6 +20,7 @@ const defaultFromFields = {
 
 
 const SignUpForm = () => {
+  const dispatch=useDispatch();
   const [fromFields, setFromFields] = useState(defaultFromFields);
   const { displayName, email, password, confirmPassword } = fromFields;
   console.log(fromFields);
@@ -34,12 +38,14 @@ const SignUpForm = () => {
       return;
     }
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      // setCurrentUser(user);
+      const {user}=await createAuthUserWithEmailAndPassword(email.password);
+      // 2️⃣ Create user document in Firestore
       await createUserDocumentFromAuth(user, { displayName });
+
+      // 3️⃣ Update Redux store
+      dispatch(setCurrentUser(user));
+
+  
       resetFromFields();
       
     } catch (error) {

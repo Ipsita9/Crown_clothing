@@ -41,9 +41,6 @@ export const GoogleSignIn=styled(BaseButton)`
 }
 
 
-
-
-
 `;
 
 export const Inverted=styled(BaseButton)`
@@ -57,64 +54,6 @@ export const Inverted=styled(BaseButton)`
         border:none;
     }
 
-
-
-
 `;
 
 
-// // .btn{
-// border:1px solid #3498db;
-// background:none;
-// padding:10px 20px;
-// font-size:20px;
-// font-family:"montserrat";
-// cursor:pointer;
-// margin:10px;
-// transition:0.8s;
-// position:relative;
-// overflow:hidden;
-
-
-// &::before{
-//     content:"";
-//     position:absolute;
-//     left:0;
-//     width:100%;
-//     height:0%;
-//     background:#3498db;
-//     z-index:-1;
-//     transition:0.8s;
-// }
-
-
-
-
-
-// }
-// .inverted{
-//     color:#3498db;
-
-//     &:hover{
-//         color:#fff;
-//     }
-// }
-// .goolesignIn{
-//     color:#fff;
-
-//     &:hover{
-//         color:#3498db;
-//     }
-//     ::before{
-
-//         top:0;
-//         border-radius:0 0 50% 50%;
-
-//     }
-// }
-
-
-
-
-
-   

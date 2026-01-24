@@ -1,0 +1,11 @@
+{
+  "name": "ecommers-project",
+  "private": true,
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@stripe/react-stripe-js": "5.4.1",
+    "@stripe/stripe-js": "8.6.3"
+  }
+}
+

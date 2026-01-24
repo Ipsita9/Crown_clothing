@@ -1,6 +1,5 @@
-import { useDispatch,useSelector } from "react-redux";
-import { addItemToCart } from "../../store/cart/cart.action";
-import { selectCartItems } from "../../store/cart/cart.selector";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../store/cart/cart.reducer";
 
 import {
   ProductCartContainer,
@@ -14,10 +13,9 @@ import Button from "../button/button.component";
 const ProductCard = ({ product }) => {
   const { name, imageUrl, price } = product;
   const dispatch = useDispatch();
-  const cartItems = useSelector(selectCartItems);
 
   const addProductToCart = () => {
-    dispatch(addItemToCart(cartItems, product));
+    dispatch(addItemToCart(product));
   };
 
   return (
